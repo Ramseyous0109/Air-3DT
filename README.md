@@ -24,7 +24,8 @@ data/v1_0/scene0/seq0
 |   |-- img_UAV0_0_0_1685445001271517300.pfm #depth file
 |   |-- img_UAV0_0_0_168544500127117300.png #rgb image file
 |   |-- ......
-|-- object.txt#recorded by preprocessing/record_data.py
+|-- object.txt #recorded by preprocessing/record_data.py
+|-- imu.txt #recorded by preprocessing/record_data.py; optional 
 ```
 
 
@@ -45,10 +46,12 @@ data/v1_0/scene0/seq0
 |-- pcd #point cloud data formated .bin
 |   |-- 1685445001271.bin
 |   |-- 1685445001491.bin
+|-- imu.txt #recorded by preprocessing/record_data.py; optional 
 |-- processed_data
     |-- camera.txt #camera pose data after synchronization
     |-- object.txt	#object pose data after synchronization
     |-- vehicle.txt #vehicle pose data after synchronization
+    |-- imu.txt #imu data after synchronization; optional
 ```
 
 
