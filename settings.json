@@ -1,0 +1,47 @@
+{
+  "ClockSpeed": 0.1,
+  "SettingsVersion": 1.2,
+  "SimMode": "Multirotor",
+  "ViewMode": "Manual",
+  "Recording": {
+    "RecordOnMove": false,
+    "RecordInterval": 0.2,
+    "Folder": "D:\\Work\\AirSim\\recorded_data",
+    "Enabled": false,
+    "Cameras": [
+      { "CameraName": "0", "ImageType": 0, "PixelsAsFloat": false,  "VehicleName": "UAV0", "Compress": true },
+      { "CameraName": "0", "ImageType": 1, "PixelsAsFloat": true,  "VehicleName": "UAV0", "Compress": false }]
+  },
+  "CameraDefaults": {
+    "CaptureSettings": [
+      {
+        "ImageType": 0,
+        "Width": 800,
+        "Height": 600,
+        "FOV_Degrees": 90,
+        "AutoExposureSpeed": 100,
+        "AutoExposureBias": 0,
+        "AutoExposureMaxBrightness": 0.5,
+        "AutoExposureMinBrightness": 0.01,
+        "MotionBlurAmount": 0,
+        "TargetGamma": 1.0,
+        "ProjectionMode": "",
+        "OrthoWidth": 5.12
+      },
+      {
+        "ImageType": 1,
+        "Width": 800,
+        "Height": 600
+      }
+    ]
+  },
+  "Vehicles": {
+    "UAV0": {
+      "VehicleType": "SimpleFlight",
+      "X": 0,
+      "Y": 0,
+      "Z": 0,
+      "Yaw": 0
+    }
+  }
+}
