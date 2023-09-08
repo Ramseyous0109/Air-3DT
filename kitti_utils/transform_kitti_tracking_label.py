@@ -88,12 +88,10 @@ def convert_to_kitti_annotation(frame_id, box_name, box_vertices, size, yaw, box
     #Zc = Zc - height / 2 # Bottom center defined in KITTI dataset
     
     line_tracking = f"{frame_id} {box_id} Pedestrian 0.00 0 {alpha} {box_2d[0][0]} {box_2d[0][1]} {box_2d[1][0]} {box_2d[1][1]} {height} {width} {length} {Xc} {Yc} {Zc} {yaw}\n"
-    line_detection = f"{frame_idx},1,0,0,0,0,1,{height},{width},{length},{Xc},{Yc},{Zc},{yaw},0\n"
-    return line_tracking, line_detection
+    return line_tracking
 
 
-out_dir = '/home/OpenPCDet/data/v1_0/tracking/tracking_labels'
-out_det_dir = '/home/OpenPCDet/data/v1_0/tracking/detection_labels'
+out_dir = '/path/to/your/tracking/label_01'
 i = 0
 for data_dir in data_dirs:
     # read camera pose data
@@ -125,16 +123,13 @@ for data_dir in data_dirs:
     object_pose_dir[timestamp] = obj_pose_stamp
     f.close()
     seq_name = '{:04d}'.format(i)
-    #label_file = open(os.path.join(out_dir, seq_name+'.txt'),'a')
-    detection_label_file = open(os.path.join(out_det_dir, seq_name+'.txt'),'a')
-    frame_idx = 0
+    label_file = open(os.path.join(out_dir, seq_name+'.txt'),'a')
     pcd_list = sorted(os.listdir(os.path.join(root_dir, data_dir, pcd_dir)))
     for pcd_file in pcd_list:
         timestamp = int(pcd_file.split('.')[0])
         points = read_pcd_file(os.path.join(root_dir, data_dir, pcd_dir, pcd_file))
         points = transform_tf(points)
         points_box, line_sets, size_sets, yaw_sets, boxes_2d, alphas = transform_label(points, obj_pose_stamp, camera_pose_dir, timestamp)
-        #print(len(points_box))
         if len(points_box) != 0:
             for box in points_box:
                 box_vertices = points_box[box]
@@ -142,9 +137,8 @@ for data_dir in data_dirs:
                 yaw = yaw_sets[box]
                 box_2d = boxes_2d[box]
                 alpha = alphas[box]
-                line_tracking, line_detection = convert_to_kitti_annotation(frame_idx, box, box_vertices, box_size, yaw, box_2d, alpha)
-                #label_file.write(line)
-                detection_label_file.write(line_detection)
+                line_tracking= convert_to_kitti_annotation(frame_idx, box, box_vertices, box_size, yaw, box_2d, alpha)
+                label_file.write(line)
         frame_idx = frame_idx + 1
     i = i + 1
-    #label_file.close()
+    label_file.close()

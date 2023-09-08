@@ -7,8 +7,8 @@ from utils import *
 img_out_dir = '/your/out/dir/image_02'
 calib_out_dir = '/your/out/dir/calib'
 root_dir = '/your/root/dir'
-#data_dirs = ['scene0/seq0','scene0/seq1','scene0/seq2','scene0/seq3','scene1/seq0','scene1/seq1','scene1/seq2','scene2/seq0','scene2/seq1']
-data_dirs = ['scene3/seq0','scene3/seq1','scene3/seq2','scene3/seq3','scene3/seq4','scene3/seq5','scene3/seq6']
+#data_dirs = ['scene0/seq0','scene0/seq1','scene0/seq2','scene0/seq3','scene1/seq0','scene1/seq1','scene1/seq2','scene2/seq0','scene2/seq1', 'scene3/seq0','scene3/seq1','scene3/seq2','scene3/seq3','scene3/seq4','scene3/seq5','scene3/seq6']
+data_dirs = []
 velodyne_out_dir = '/your/out/dir/velodyne'
 scene_index = 9
 for data_dir in data_dirs:   

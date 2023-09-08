@@ -33,7 +33,7 @@ def euler_to_quaternion(roll, pitch, yaw):
     return [qx, qy, qz, qw]
 
 image_height = 600
-results_dir = '/your/directory/results'
+results_dir = '/your/directory/label_01'
 output_dir = '/your/directory/label_02'
 files = os.listdir(results_dir)
 for file in files:
