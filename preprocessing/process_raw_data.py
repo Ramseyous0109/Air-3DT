@@ -1,23 +1,27 @@
 import numpy as np
 import os
 import pc2bin
-data_dir = 'D:\Work\AirSim\AirSimDataset\process_data\\v1_0\scene3\seq3'
+data_dir = 'your/data/root'
 image_path = os.path.join(data_dir, 'images')
 index_file = os.path.join(data_dir, 'airsim_rec.txt')
-os.makedirs(os.path.join(data_dir, 'pcd'))
-os.makedirs(os.path.join(data_dir, 'processed_data'))
+os.makedirs(os.path.join(data_dir, 'pcd'), exist_ok=True)
+os.makedirs(os.path.join(data_dir, 'processed_data'), exist_ok=True)
 pcd_path = os.path.join(data_dir, 'pcd')
 out_vehicle_file = os.path.join(data_dir, 'processed_data\\vehicle.txt')
+
 stamps = []
+
 f = open(index_file)
 f_out = open(out_vehicle_file, 'a')
 next(f)
+
 for line in f:
     line = line.strip()
     array = line.split()
     stamps.append(int(array[1]))
 f.close()
-
+f = open(index_file)
+next(f)
 for line in f:
     line = line.strip()
     array = line.split()
@@ -35,6 +39,7 @@ for line in f:
 f.close()
 f_out.close()
 
+
 f = open(index_file)
 next(f)
 for line in f:
@@ -43,8 +48,13 @@ for line in f:
     pc2bin.save_to_pcd(image_path, pcd_path, line.split()[1])
 f.close()
 
+
+
+
+
 camera_pose_file = os.path.join(data_dir, 'camera_pose.txt')
 f = open(camera_pose_file)
+# 匹配时间戳
 record_data_stamps = []
 for line in f:
     line = line.strip()
@@ -58,6 +68,7 @@ for i in range(len(stamps)):
     stamp_pairs[filtered_data_stamps[i]] = stamps[i]
 f.close()
 
+
 f = open(camera_pose_file)
 out_camera_file = os.path.join(data_dir, 'processed_data\\camera.txt')
 f_out = open(out_camera_file, 'a')
@@ -69,6 +80,20 @@ for line in f:
         continue
     changed_stamp = stamp_pairs[stamp]
     data = f"{changed_stamp} {array[1]} {array[2]} {array[3]} {array[4]} {array[5]} {array[6]} {array[7]}\n"
+    f_out.write(data)
+f_out.close()
+
+f = open(os.path.join(data_dir, 'imu.txt'))
+out_imu_file = os.path.join(data_dir, 'processed_data\\imu.txt')
+f_out = open(out_imu_file, 'a')
+for line in f:
+    line = line.strip()
+    array = line.split()
+    stamp = int(array[0])
+    if stamp not in stamp_pairs:
+        continue
+    changed_stamp = stamp_pairs[stamp]
+    data = f"{changed_stamp} {array[1]} {array[2]} {array[3]} {array[4]} {array[5]} {array[6]}\n"
     f_out.write(data)
 f_out.close()
 
@@ -87,3 +112,4 @@ for line in f:
     f_out.write(data)
 f.close()
 f_out.close()
+print('ddd')
